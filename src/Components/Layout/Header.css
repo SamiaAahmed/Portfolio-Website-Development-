@@ -1,0 +1,187 @@
+/* ---------- Header bar ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(14px + env(safe-area-inset-top, 0px)) 5vw 14px;
+  background: color-mix(in srgb, var(--color-blue-dark) 85%, transparent);
+  backdrop-filter: blur(10px);
+  color: var(--color-white);
+}
+
+.header-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--color-lime);
+  color: var(--color-black);
+  font: 800 1.2rem var(--font-display);
+  text-decoration: none;
+  transition: transform 0.4s;
+}
+
+.header-logo:hover {
+  transform: rotate(180deg) scale(1.1);
+}
+
+/* ---------- Desktop nav with sliding pill ---------- */
+.header-nav {
+  position: relative;
+  display: flex;
+  padding: 5px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.header-pill {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 0;
+  border-radius: 99px;
+  background: var(--color-lime);
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.header-link {
+  position: relative;
+  z-index: 1;
+  padding: 9px 20px;
+  border-radius: 99px;
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.header-link--hot {
+  color: var(--color-black);
+}
+
+/* ---------- Menu button (three lines -> X) ---------- */
+.header-menu-btn {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--color-lime);
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.3s;
+}
+
+.header-menu-btn i {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background: var(--color-lime);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s, background 0.3s;
+}
+
+.header-menu-btn i:nth-child(1) { transform: translateY(-6px); }
+.header-menu-btn i:nth-child(3) { transform: translateY(6px); }
+
+.header-menu-btn--open { background: var(--color-lime); }
+.header-menu-btn--open i { background: var(--color-black); }
+.header-menu-btn--open i:nth-child(1) { transform: rotate(45deg); }
+.header-menu-btn--open i:nth-child(2) { opacity: 0; }
+.header-menu-btn--open i:nth-child(3) { transform: rotate(-45deg); }
+
+/* ---------- Fullscreen menu ---------- */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 110px 7vw 6vh;
+  background: var(--color-blue-deep);
+  color: var(--color-white);
+  visibility: hidden;
+  clip-path: circle(0 at calc(100% - 5vw - 24px) calc(env(safe-area-inset-top, 0px) + 38px));
+  transition: clip-path 0.8s cubic-bezier(0.7, 0, 0.2, 1), visibility 0s 0.8s;
+}
+
+.menu-overlay--open {
+  visibility: visible;
+  clip-path: circle(160% at calc(100% - 5vw - 24px) calc(env(safe-area-inset-top, 0px) + 38px));
+  transition: clip-path 0.8s cubic-bezier(0.7, 0, 0.2, 1), visibility 0s;
+}
+
+.menu-link {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  color: var(--color-white);
+  font: 800 clamp(2.8rem, 10vw, 7.5rem) var(--font-display);
+  line-height: 1.05;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: transform 0.35s, opacity 0.2s, color 0.25s;
+}
+
+.menu-overlay--open .menu-link {
+  opacity: 1;
+  transform: none;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--i) * 80ms + 300ms),
+    opacity 0.6s calc(var(--i) * 80ms + 300ms), color 0.25s;
+}
+
+.menu-overlay--open .menu-link:hover {
+  color: var(--color-lime);
+  transform: translateX(18px);
+  transition: transform 0.3s, color 0.25s;
+}
+
+.menu-link small {
+  font: 700 1rem var(--font-body);
+  color: var(--color-lime);
+}
+
+.menu-link::after {
+  content: "↗";
+  font-size: 0.5em;
+  color: var(--color-lime);
+  opacity: 0;
+  transform: translate(-10px, 10px);
+  transition: 0.3s;
+}
+
+.menu-link:hover::after {
+  opacity: 1;
+  transform: none;
+}
+
+.menu-link.active small::before {
+  content: "● ";
+}
+
+.menu-note {
+  margin-top: 5vh;
+  color: #aab2ff;
+  font-size: 0.95rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 820px) {
+  .header-nav {
+    display: none; /* the fullscreen menu replaces it on tablets and phones */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header *, .menu-overlay, .menu-overlay * {
+    transition: none !important;
+  }
+}
