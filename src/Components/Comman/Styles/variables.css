@@ -1,0 +1,72 @@
+/* ==========================================================
+   variables.css — Color palette + headings
+   Path: src/Components/Comman/Styles/variables.css
+   Fonts (public/index.html <head>):
+   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+   ========================================================== */
+
+:root {
+  /* ---------- Brand colors ---------- */
+  --color-blue: #2f46f0;
+  --color-blue-dark: #2332c9;
+  --color-blue-deep: #0a0f55;
+  --color-blue-soft: #6a6cff;
+  --color-lime: #b8ff00;
+  --color-pink: #ff3d9a;
+  --color-violet: #d63dff;
+  --color-white: #ffffff;
+  --color-black: #0d0d12;
+
+  /* ---------- Theme colors (light) ---------- */
+  --color-bg: #ececec;
+  --color-surface: #ffffff;
+  --color-text: #0d0d12;
+  --color-text-soft: #55555f;
+  --color-link: #2f46f0;
+  --color-on-link: #ffffff;
+  --color-grid-line: rgba(0, 0, 0, 0.08);
+
+  /* ---------- Fonts ---------- */
+  --font-display: 'Syne', 'DM Sans', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+
+/* ---------- Dark theme (follows the device setting) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #101120;
+    --color-surface: #1a1c30;
+    --color-text: #f1f1f6;
+    --color-text-soft: #a5a7bb;
+    --color-link: #8f9cff;
+    --color-on-link: #101120;
+    --color-grid-line: rgba(255, 255, 255, 0.07);
+  }
+}
+
+/* Manual switch: <html data-theme="dark"> */
+:root[data-theme="dark"] {
+  --color-bg: #101120;
+  --color-surface: #1a1c30;
+  --color-text: #f1f1f6;
+  --color-text-soft: #a5a7bb;
+  --color-link: #8f9cff;
+  --color-on-link: #101120;
+  --color-grid-line: rgba(255, 255, 255, 0.07);
+}
+
+/* ---------- Headings ---------- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+h1 { font-size: clamp(2.6rem, 8vw, 6.5rem); }   /* hero headline */
+h2 { font-size: clamp(2.2rem, 6vw, 4.4rem); }   /* section titles */
+h3 { font-size: clamp(1.8rem, 4vw, 3rem); }     /* project titles */
+h4 { font-size: 1.35rem; }                      /* card titles */
+h5 { font-size: 1.1rem; }
+h6 { font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
